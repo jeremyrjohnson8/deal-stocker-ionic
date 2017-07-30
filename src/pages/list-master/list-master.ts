@@ -3,6 +3,7 @@ import { NavController, ModalController } from 'ionic-angular';
 
 import { ItemCreatePage } from '../item-create/item-create';
 import { ItemDetailPage } from '../item-detail/item-detail';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { Items } from '../../providers/providers';
 
@@ -14,9 +15,25 @@ import { Item } from '../../models/item';
 })
 export class ListMasterPage {
   currentItems: Item[];
+  barcodeResult: string;
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
+  // barcodeScannerOptions: BarcodeScannerOptions = {
+  //   preferFrontCamera: false, // iOS and Android
+  //   showFlipCameraButton: false, // iOS and Android
+  //   showTorchButton: true, // iOS and Android
+  //   torchOn: true, // Android, launch with the torch switched on (if available)
+  //   prompt: 'Place a barcode inside the scan area', // Android
+  //   resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+  //   //formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+  //   //orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+  // };
+  barcpdeFound = false;
+  loadingBarcode = false;
+  
+
+  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, public barcodeScanner: BarcodeScanner) {
+
+
   }
 
   /**
@@ -39,6 +56,19 @@ export class ListMasterPage {
     addModal.present();
   }
 
+  scanBarcode(): void {
+    debugger;
+    this.barcodeScanner.scan().then((barcodeData) => {
+      console.log(barcodeData);
+
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  getProduct(): void {
+    let searchVal: string = this.barcodeResult;
+  }
   /**
    * Delete an item from the list of items.
    */

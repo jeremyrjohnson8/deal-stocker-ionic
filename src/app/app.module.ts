@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, Http } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage, IonicStorageModule } from '@ionic/storage';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 import { MyApp } from './app.component';
 
@@ -30,9 +31,22 @@ import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+export const firebaseConfig = {
+    apiKey: "AIzaSyC7uKvwsoqe-_mV6RLu6fHdRVTDKBWieoc",
+    authDomain: "stocker-4c25a.firebaseapp.com",
+    databaseURL: "https://stocker-4c25a.firebaseio.com",
+    storageBucket: "stocker-4c25a.appspot.com",
+    messagingSenderId: "59699739686"
+};
+
+
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -111,6 +125,8 @@ export function provideSettings(storage: Storage) {
     Camera,
     GoogleMaps,
     SplashScreen,
+    BarcodeScanner,
+    AndroidPermissions,
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
